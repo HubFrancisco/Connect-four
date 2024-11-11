@@ -46,7 +46,7 @@ const generateToken = (userId) => {
 
 const authenticateToken = (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
-    if (!token) return res.status(403).send('Acesso negado.');
+    if (!token) return res.status(403).send('Access denied.');
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) return res.status(403).send('Token inválido.');
@@ -99,7 +99,7 @@ app.post('/games', authenticateToken, (req, res) => {
 
     saveHistory(history);
 
-    res.status(200).json({ message: 'Resultado do jogo salvo com sucesso.', history });
+    res.status(200).json({ message: 'The game has been saved', history });
 });
 
 app.get('/games/clear', (req, res) => {
@@ -135,7 +135,7 @@ io.on('connection', (socket) => {
         io.to(room).emit("gameUpdate", { result: null, ...currentGame, room });
     });
     socket.on('chatMessage', (messageData) => {
-        io.emit('chatMessage', messageData); // Envia a mensagem para todos os clientes conectados
+        io.emit('chatMessage', messageData);
     });
     socket.on('game', (data) => {
         io.to(data.room).emit('game', { user: data.user });
