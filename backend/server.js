@@ -22,7 +22,7 @@ let gameRooms = [];
 let members = []
 let startGame = { Name: "", Members: [] }
 let currentGame = {
-    board: Array(6).fill(null).map(() => Array(7).fill(null)), // Tabuleiro vazio
+    board: Array(6).fill(null).map(() => Array(7).fill(null)),
     currentPlayer: 'Red',
 };
 
@@ -132,7 +132,7 @@ io.on('connection', (socket) => {
         const { board, currentPlayer, room } = data;
         currentGame.board = board;
         currentGame.currentPlayer = currentPlayer;
-        io.to(room).emit("gameUpdate", { result: null, ...currentGame, room }); // Emitir para todos os jogadores
+        io.to(room).emit("gameUpdate", { result: null, ...currentGame, room });
     });
     socket.on('chatMessage', (messageData) => {
         io.emit('chatMessage', messageData); // Envia a mensagem para todos os clientes conectados
@@ -182,9 +182,9 @@ io.on('connection', (socket) => {
                     Members: members
                 })
             }
-            io.emit('gameRoom', gameRooms); // Atualiza todos sobre a nova sala
+            io.emit('gameRoom', gameRooms);
         } else {
-            io.emit('gameRoom', gameRooms); // Atualiza todos sobre a entrada do jogador
+            io.emit('gameRoom', gameRooms);
         }
     });
     socket.on("roomCurrent", (data) => {

@@ -1,4 +1,3 @@
-/* Adicione no seu arquivo CSS */
 .cell {
   width: 50px;
   height: 50px;
@@ -6,7 +5,6 @@
   background-color: gray;
   margin: 2px;
   transition: transform 0.5s ease;
-  /* Animação para a transição */
   position: relative;
 }
 
@@ -18,21 +16,17 @@
   background-color: yellow;
 }
 
-/* Animação de queda para as peças */
 .falling {
   animation: fall 0.5s ease forwards;
 }
 
-/* Definindo a animação de queda */
 @keyframes fall {
   0% {
     transform: translateY(-100%);
-    /* Começa de fora da tela */
   }
 
   100% {
     transform: translateY(0);
-    /* Chega até a posição final */
   }
 }
 

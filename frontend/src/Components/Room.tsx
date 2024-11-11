@@ -190,16 +190,16 @@ export default function Room({ token }: { token: string | null }) {
         }
     }, [token]);
     const sound = new Howl({
-        src: ['./select-sound-121244.mp3'], // Substitua pelo caminho do seu áudio
-        html5: true, // Habilita o uso de HTML5 para melhor compatibilidade com navegadores móveis
+        src: ['./select-sound-121244.mp3'],
+        html5: true,
     });
     const soundSystem = new Howl({
-        src: ['./short-success-sound-glockenspiel-treasure-video-game-6346.mp3'], // Substitua pelo caminho do seu áudio
-        html5: true, // Habilita o uso de HTML5 para melhor compatibilidade com navegadores móveis
+        src: ['./short-success-sound-glockenspiel-treasure-video-game-6346.mp3'],
+        html5: true,
     });
     const soundCelebrate = new Howl({
-        src: ['./music-for-game-fun-kid-game-163649.mp3'], // Substitua pelo caminho do seu áudio
-        html5: true, // Habilita o uso de HTML5 para melhor compatibilidade com navegadores móveis
+        src: ['./music-for-game-fun-kid-game-163649.mp3'],
+        html5: true,
     });
     const playAudio = () => {
         sound.play();

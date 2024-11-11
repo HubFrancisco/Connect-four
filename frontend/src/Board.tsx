@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import './BoardGlobal.css'
-import Chat from './Chat';
+import Chat from './Components/Chat';
 import Room from './Components/Room';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,8 +11,8 @@ type User = {
     username: string,
     id: string
 }
-const Board: React.FC = () => {// Para animação de queda
-    const [token, setToken] = useState<string | null>(localStorage.getItem('token')); // Armazenando o token JWT
+const Board: React.FC = () => {
+    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
     const [userData, setUserData] = useState<User | null>();
     const navigate = useNavigate()
 

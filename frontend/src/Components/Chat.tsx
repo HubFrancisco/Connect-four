@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { socket } from "./Websocket";
+import { socket } from "../Websocket";
 import { Howl } from "howler";
 import { Toaster, toast } from 'react-hot-toast';
 export default function Chat({ username }: { username: string }) {
@@ -9,12 +9,12 @@ export default function Chat({ username }: { username: string }) {
         toast.error("Message can't be empty!");
     };
     const sound = new Howl({
-        src: ['./90s-game-ui-6-185099.mp3'], // Substitua pelo caminho do seu áudio
-        html5: true, // Habilita o uso de HTML5 para melhor compatibilidade com navegadores móveis
+        src: ['./90s-game-ui-6-185099.mp3'],
+        html5: true,
     });
     const soundSystem = new Howl({
-        src: ['./short-success-sound-glockenspiel-treasure-video-game-6346.mp3'], // Substitua pelo caminho do seu áudio
-        html5: true, // Habilita o uso de HTML5 para melhor compatibilidade com navegadores móveis
+        src: ['./short-success-sound-glockenspiel-treasure-video-game-6346.mp3'],
+        html5: true,
     });
 
     useEffect(() => {

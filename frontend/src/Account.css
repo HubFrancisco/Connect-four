@@ -68,7 +68,6 @@ h2 {
     margin-top: 1rem;
 }
 
-/* Responsividade */
 @media (max-width: 500px) {
     .login-container {
         padding: 1.5rem;
