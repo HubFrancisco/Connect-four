@@ -25,10 +25,10 @@ type GameRoom = {
 }
 
 const directions: Direction[] = [
-    { rowDir: 1, colDir: 0 }, // vertical
-    { rowDir: 0, colDir: 1 }, // horizontal
-    { rowDir: 1, colDir: 1 }, // diagonal direita
-    { rowDir: 1, colDir: -1 } // diagonal esquerda
+    { rowDir: 1, colDir: 0 },
+    { rowDir: 0, colDir: 1 },
+    { rowDir: 1, colDir: 1 },
+    { rowDir: 1, colDir: -1 }
 ];
 const createEmptyBoard = (): BoardType => {
     return Array(ROWS).fill(null).map(() => Array(COLUMNS).fill(null));
@@ -245,7 +245,7 @@ export default function Room({ token }: { token: string | null }) {
                     axios.post('http://localhost:5000/games', { result: `${gameWinner} Wins ${userData.username}` }, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    socket.emit('gameOver', { room: roomCurrent.name, result: gameWinner, board: newBoard }); // Emitindo evento de fim de jogo
+                    socket.emit('gameOver', { room: roomCurrent.name, result: gameWinner, board: newBoard }); 
                     socket.emit('endGame', true);
                     handleCelebrate();
                     soundSystem.play();
@@ -254,12 +254,12 @@ export default function Room({ token }: { token: string | null }) {
                     axios.post('http://localhost:5000/games', { result: "Draw" }, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    socket.emit('gameOver', { room: roomCurrent.name, result: "Draw", board: newBoard }); // Emitindo evento de empate
+                    socket.emit('gameOver', { room: roomCurrent.name, result: "Draw", board: newBoard }); 
                     socket.emit('endGame', true);
                     soundSystem.play();
                 } else {
                     setCurrentPlayer(currentPlayer === 'Red' ? 'Yellow' : 'Red');
-                    socket.emit('gameMove', { room: roomCurrent.name, board: newBoard, currentPlayer: currentPlayer === 'Red' ? 'Yellow' : 'Red' }); // Emitindo movimento
+                    socket.emit('gameMove', { room: roomCurrent.name, board: newBoard, currentPlayer: currentPlayer === 'Red' ? 'Yellow' : 'Red' }); 
                     playAudio()
                 }
 
