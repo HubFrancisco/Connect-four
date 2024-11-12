@@ -139,9 +139,7 @@ export default function Room({ token }: { token: string | null }) {
             setBoard(createEmptyBoard());
             setCurrentPlayer('Red');
             setWinner(null);
-            socket.emit('game', {
-                user: ''
-            })
+            setGame({ user: '' });
             setFallingPiece(null);
             setRoomCurrent({ name: '', id: '' });
             socket.emit('endGame', {
