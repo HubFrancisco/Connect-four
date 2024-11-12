@@ -284,21 +284,11 @@ export default function Room({ token }: { token: string | null }) {
             soundSystem.play();
             return;
         }
-
-        if (newMember.length < 3) {
             newMember.push(member);
             console.log(newMember);
             setGroupMembers(newMember);
             notifySuccess("Member added with success in Room!");
             soundSystem.play();
-            return;
-        } else {
-            notify("Can't add more members, because the room is so to two pernsons!");
-            soundSystem.play();
-            return;
-        }
-
-
     }
     const createRoom = () => {
         console.log(groupName)
