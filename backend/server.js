@@ -145,7 +145,7 @@ io.on('connection', (socket) => {
     socket.on('resetGame', (data) => {
         io.emit('resetGame', data);
     })
-    //Escutando por evento de fim de jogo
+
     socket.on('gameOver', (data) => {
         const { result, board, room } = data;
         currentGame.board = board;
@@ -174,7 +174,7 @@ io.on('connection', (socket) => {
     socket.on('gameRoom', (gameRoom) => {
         const existingRoom = gameRooms.find(room => room.Name === gameRoom.Name);
         let message;
-        if (!existingRoom) {
+             if (!existingRoom) {
             for (let element of gameRoom.Members) {
                 members.push(element.split("/")[0])
                 gameRooms.push({
@@ -186,9 +186,11 @@ io.on('connection', (socket) => {
             members = [];
             message = "Room created with success click on the room to play !";
             io.emit('gameRoom', gameRooms,message);
+            io.emit('gameRoomAll', gameRooms);
         } else {
             members = [];
             message = "Room already exists!";
+            io.emit('gameRoomAll', gameRooms);
             io.emit('gameRoom', gameRooms,message);
         }
     });
