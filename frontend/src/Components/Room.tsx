@@ -307,6 +307,7 @@ export default function Room({ token }: { token: string | null }) {
                     Name: groupName,
                     Members: groupMembers
                 })
+                 newMember = [];
             } else {
                 notify("At least two members are required to create a room!")
             }
