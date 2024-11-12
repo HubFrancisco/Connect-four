@@ -174,8 +174,10 @@ export default function Room({ token }: { token: string | null }) {
         socket.on('endGame', (data) => {
             setStartGame(data.startGame);
         })
-        socket.on('gameRoom', (data) => {
+         socket.on('gameRoom', (data,message) => {
             setGameRoom(data);
+            setGroupMembers([])
+            notifySuccess(message)
         })
         return () => {
             socket.off("roomCurrent")
@@ -305,8 +307,6 @@ export default function Room({ token }: { token: string | null }) {
                     Name: groupName,
                     Members: groupMembers
                 })
-                setGroupMembers([])
-                notifySuccess("Room created with success, click to start the game!")
             } else {
                 notify("At least two members are required to create a room!")
             }
