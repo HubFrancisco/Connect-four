@@ -119,6 +119,23 @@ export default function Room({ token }: { token: string | null }) {
             .catch(err => {
                 console.log(err);
             });
+        axios.get('http://localhost:5000/rooms/game')
+                .then(response => {
+                    setGameRoom(response.data.history);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        socket.on("gameRoomAll", (data) => {
+                    console.log(data)
+                    axios.get('http://localhost:5000/rooms/game')
+                        .then(response => {
+                            setGameRoom(response.data.history);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+            })
 
         socket.on("gameHistory", (data) => {
             console.log(data)
@@ -175,9 +192,9 @@ export default function Room({ token }: { token: string | null }) {
             setStartGame(data.startGame);
         })
          socket.on('gameRoom', (data,message) => {
-            setGameRoom(data);
             setGroupMembers([])
             notifySuccess(message)
+            console.log(data);
         })
         return () => {
             socket.off("roomCurrent")
