@@ -290,8 +290,6 @@ export default function Room({ token }: { token: string | null }) {
             console.log(newMember);
             setGroupMembers(newMember);
             notifySuccess("Member added with success in Room!");
-            setGroupName('')
-            setGroupMembers([])
             soundSystem.play();
             return;
         } else {
