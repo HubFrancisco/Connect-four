@@ -182,8 +182,10 @@ io.on('connection', (socket) => {
                     Members: members
                 })
             }
+            members = []
             io.emit('gameRoom', gameRooms);
         } else {
+             members = []
             io.emit('gameRoom', gameRooms);
         }
     });
