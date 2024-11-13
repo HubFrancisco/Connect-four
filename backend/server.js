@@ -118,7 +118,10 @@ app.get('/games', (req, res) => {
     const history = readHistory();
     res.status(200).json({ history });
 });
-
+app.get('/rooms/game', (req, res) => {
+    const history = gameRooms;
+    res.status(200).json({ history });
+});
 app.get('/me', authenticateToken, (req, res) => {
     const users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
     const user = users.find(user => user.username == req.user.userId);
@@ -174,7 +177,7 @@ io.on('connection', (socket) => {
     socket.on('gameRoom', (gameRoom) => {
         const existingRoom = gameRooms.find(room => room.Name === gameRoom.Name);
         let message;
-             if (!existingRoom) {
+        if (!existingRoom) {
             for (let element of gameRoom.Members) {
                 members.push(element.split("/")[0])
                 gameRooms.push({
@@ -185,15 +188,16 @@ io.on('connection', (socket) => {
             }
             members = [];
             message = "Room created with success click on the room to play !";
-            io.emit('gameRoom', gameRooms,message);
+            io.emit('gameRoom', gameRooms, message);
             io.emit('gameRoomAll', gameRooms);
         } else {
             members = [];
             message = "Room already exists!";
             io.emit('gameRoomAll', gameRooms);
-            io.emit('gameRoom', gameRooms,message);
+            io.emit('gameRoom', gameRooms, message);
         }
     });
+
     socket.on("roomCurrent", (data) => {
         startGame.Name = data.name;
         if (!startGame.Members.find(player => player == data.user)) {

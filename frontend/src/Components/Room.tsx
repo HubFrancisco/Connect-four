@@ -120,22 +120,22 @@ export default function Room({ token }: { token: string | null }) {
                 console.log(err);
             });
         axios.get('http://localhost:5000/rooms/game')
+            .then(response => {
+                setGameRoom(response.data.history);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        socket.on("gameRoomAll", (data) => {
+            console.log(data)
+            axios.get('http://localhost:5000/rooms/game')
                 .then(response => {
                     setGameRoom(response.data.history);
                 })
                 .catch(err => {
                     console.log(err);
                 });
-        socket.on("gameRoomAll", (data) => {
-                    console.log(data)
-                    axios.get('http://localhost:5000/rooms/game')
-                        .then(response => {
-                            setGameRoom(response.data.history);
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-            })
+        })
 
         socket.on("gameHistory", (data) => {
             console.log(data)
@@ -191,7 +191,7 @@ export default function Room({ token }: { token: string | null }) {
         socket.on('endGame', (data) => {
             setStartGame(data.startGame);
         })
-         socket.on('gameRoom', (data,message) => {
+        socket.on('gameRoom', (data, message) => {
             setGroupMembers([])
             notifySuccess(message)
             console.log(data);
@@ -262,7 +262,7 @@ export default function Room({ token }: { token: string | null }) {
                     axios.post('http://localhost:5000/games', { result: `${gameWinner} Wins ${userData.username}` }, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    socket.emit('gameOver', { room: roomCurrent.name, result: gameWinner, board: newBoard }); 
+                    socket.emit('gameOver', { room: roomCurrent.name, result: gameWinner, board: newBoard });
                     socket.emit('endGame', true);
                     handleCelebrate();
                     soundSystem.play();
@@ -271,12 +271,12 @@ export default function Room({ token }: { token: string | null }) {
                     axios.post('http://localhost:5000/games', { result: "Draw" }, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
-                    socket.emit('gameOver', { room: roomCurrent.name, result: "Draw", board: newBoard }); 
+                    socket.emit('gameOver', { room: roomCurrent.name, result: "Draw", board: newBoard });
                     socket.emit('endGame', true);
                     soundSystem.play();
                 } else {
                     setCurrentPlayer(currentPlayer === 'Red' ? 'Yellow' : 'Red');
-                    socket.emit('gameMove', { room: roomCurrent.name, board: newBoard, currentPlayer: currentPlayer === 'Red' ? 'Yellow' : 'Red' }); 
+                    socket.emit('gameMove', { room: roomCurrent.name, board: newBoard, currentPlayer: currentPlayer === 'Red' ? 'Yellow' : 'Red' });
                     playAudio()
                 }
 
@@ -303,11 +303,11 @@ export default function Room({ token }: { token: string | null }) {
             soundSystem.play();
             return;
         }
-            newMember.push(member);
-            console.log(newMember);
-            setGroupMembers(newMember);
-            notifySuccess("Member added with success in Room!");
-            soundSystem.play();
+        newMember.push(member);
+        console.log(newMember);
+        setGroupMembers(newMember);
+        notifySuccess("Member added with success in Room!");
+        soundSystem.play();
     }
     const createRoom = () => {
         console.log(groupName)
@@ -324,7 +324,7 @@ export default function Room({ token }: { token: string | null }) {
                     Name: groupName,
                     Members: groupMembers
                 })
-                 newMember = [];
+                newMember = [];
             } else {
                 notify("At least two members are required to create a room!")
             }
