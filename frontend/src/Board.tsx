@@ -45,7 +45,6 @@ const Board: React.FC = () => {
                 <button className="logout-btn" onClick={logout}>Logout</button>
                 <h2 className="username">Player: {userData?.username}</h2>
             </div>
-
             <div className="room-chat-container">
                 <Room token={token} />
                 <Chat username={userData?.username ?? ''} />
